@@ -80,4 +80,3 @@
     - peeringDb.getASNData != []
     - netero_peeringdb_user is defined
     - netero_peeringdb_password is defined
-
