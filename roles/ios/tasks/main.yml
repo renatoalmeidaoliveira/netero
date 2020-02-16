@@ -1,0 +1,14 @@
+- name: show variables
+  debug:
+    var: netero_model_dir
+
+- name: model lookup
+  find:
+    paths: {{netero_model_dir}}
+    patterns: "*"
+    file_type: file
+  register: Files
+
+- name: print files
+  debug:
+    var: Files
