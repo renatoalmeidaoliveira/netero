@@ -1,0 +1,115 @@
+#!/usr/bin/python
+
+import requests
+import json
+
+from ansible.module_utils.basic import *
+from requests.auth import HTTPBasicAuth
+
+
+def getASNID(asn , username=None , password=None) :
+
+    if (username != None ) and (password != None) :
+        request = requests.get("https://www.peeringdb.com/api/net?asn=" + str(asn) ,
+            auth=HTTPBasicAuth(username , password  ))
+    else:
+        request = requests.get("https://www.peeringdb.com/api/net?asn=" + str(asn))
+
+    request.raise_for_status()
+    response = json.loads(request.text)
+    result = None
+    for data in response["data"] :
+        if data["asn"] == int(asn) :
+            result = data["id"]
+            break
+    if result != None :
+        return result
+    else:
+        raise NameError('Unknown ASN')
+
+def getASNData(asn, username=None , password=None):
+
+    asnId = getASNID(asn)
+
+    if (username != None ) and (password != None) :
+        asnId = getASNID(asn , username , password)
+        request = requests.get("https://www.peeringdb.com/api/net/" + str(asnId) ,
+            auth=HTTPBasicAuth(username , password  ))
+    else:
+        asnId = getASNID(asn)
+        request = requests.get("https://www.peeringdb.com/api/net/" + str(asnId))
+
+    request.raise_for_status()
+    response = json.loads(request.text)
+    return response["data"][0]
+
+def pasrseASNData(asn , username=None , password=None , ixId=None , ixName=None):
+    keys = ["info_prefixes4", "info_prefixes6", "poc_set", "info_unicast", "info_ipv6" ]
+    data = getASNData(asn , username , password)
+    output = {}
+    ixOutput = []
+    irrData = []
+    output["ASN"] = asn
+    for key in keys:
+        if key in data:
+            output[key] = data[key]
+    if "irr_as_set" in data:
+        if data["irr_as_set"] == "" :
+            irrData = []
+        else:
+            irrDataSet = data["irr_as_set"].split(" ")
+            
+            for irrAsSet in irrDataSet:
+                irrRepoSet = irrAsSet.split("::")
+                if len(irrRepoSet) == 1 :
+                    irrData.append(irrRepoSet[0])
+                else :
+                    irrData.append(irrRepoSet[1])
+    if "netixlan_set" in data :
+        ixFilter = None
+        if ixName != None :
+            ixFilter = "name"
+        if ixId != None :
+            ixFilter = "ix_id"
+        inputIxData = ixId or ixName
+        if ixFilter != None :
+            ixSet = data["netixlan_set"]
+            ixOutput = []
+            interfaceData = {}
+            for ix in ixSet :
+                if ix[ixFilter] == inputIxData :
+                    if "ipaddr4" in ix :
+                        interfaceData["ipaddr4"] = ix["ipaddr4"]
+                    if "ipaddr6" in ix :
+                        interfaceData["ipaddr6"] = ix["ipaddr6"]
+                    if "speed" in ix :
+                        interfaceData["speed"] = ix["speed"]
+                    ixOutput.append(interfaceData)
+    if ixOutput != [] :
+        output["interfaces"] = ixOutput
+    output["irr_as_set"] = irrData
+    return output
+
+
+
+
+
+def main():
+
+    fields = {
+        "asn":       {"required": True,  "type": "int"},
+        "username":  {"required": False, "type": "str"},
+        "password":  {"required": False, "type": "str", "no_log": True },
+        "ix-id":     {"required": False, "type": "int"},
+        "ix-name":   {"required": False, "type": "str"}
+    }
+    module = AnsibleModule(argument_spec=fields)
+    response = pasrseASNData(module.params['asn'] , module.params['username'] ,
+        module.params['password'] , module.params['ix-id'] , module.params['ix-name'])
+    module.exit_json(changed=False, message=response)
+
+
+if __name__ == '__main__':
+    main()
+
+
