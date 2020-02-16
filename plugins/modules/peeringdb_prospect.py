@@ -3,17 +3,83 @@
 import requests
 import json
 
-from ansible.module_utils.basic import  AnsibleModule
+from ansible.module_utils.basic import AnsibleModule
 from requests.auth import HTTPBasicAuth
+ANSIBLE_METADATA = {
+    'metadata_version': '1.0.1',
+    'status': ['preview'],
+    'supported_by': 'community'
+}
+
+DOCUMENTATION = '''
+---
+module: peeringDB prospect
+
+short_description: Searches in the peeringDB database which IXP an dst-ASN has in common with src-ASN
+
+version_added: "0.0.1"
+
+description:
+    - "This modules uses peeringDB API to lookup for IXP that dst-ASN has in commoon with src-ASN"
+    - "Providing username and password allows peeringDB to provide restricted information on the query"
+
+options:
+    src-asn:
+        description:
+            - "The source ASN you whant to lookup for matches on IXP"
+        required: true
+    dst-asn:
+        description:
+            - "The destination ASN you whant to lookup for matches on IXP"
+        required: true
+    username:
+        description:
+            - "The peeringdb Username"
+        required: false
+    password:
+        description:
+            - "The peeringDB password"
+        required: false
+author:
+    - Renato Almeida de Oliveira (renato.a.oliveira@pm.me)
+'''
+
+EXAMPLES = '''
+# Extract IXP that ASN 15169 and ASN 2906 have in common
+- name: Commit repo
+  peeringdb_prospect:
+    dst-asn: 15169
+    src-asn: 2906
+'''
+
+RETURN = '''
+message:
+  - ASN:
+      IXs:
+        - id: 
+          name: 
+      poc_set:
+        - role: 
+          created: 
+          email:
+          phone:
+          name:
+          status:
+          updated:
+          url:
+          visible:
+          id:
+'''
 
 
 def getASNID(asn, username=None, password=None):
 
-    if (username is not None) and (password is not None) :
+    if (username is not None) and (password is not None):
         request = requests.get("https://www.peeringdb.com/api/net?asn=" + str(asn),
                                auth=HTTPBasicAuth(username, password))
     else:
-        request = requests.get("https://www.peeringdb.com/api/net?asn=" + str(asn))
+        request = requests.get(
+            "https://www.peeringdb.com/api/net?asn=" + str(asn))
 
     request.raise_for_status()
     response = json.loads(request.text)
@@ -32,13 +98,14 @@ def getASNData(asn, username=None, password=None):
 
     asnId = getASNID(asn)
 
-    if (username is not None) and (password is not None) :
+    if (username is not None) and (password is not None):
         asnId = getASNID(asn, username, password)
         request = requests.get("https://www.peeringdb.com/api/net/" + str(asnId),
                                auth=HTTPBasicAuth(username, password))
     else:
         asnId = getASNID(asn)
-        request = requests.get("https://www.peeringdb.com/api/net/" + str(asnId))
+        request = requests.get(
+            "https://www.peeringdb.com/api/net/" + str(asnId))
 
     request.raise_for_status()
     response = json.loads(request.text)
@@ -62,7 +129,7 @@ def pasrseASNData(srcAsn, dstAsn, username=None, password=None):
     for ixId in srcIxLocations:
         matchLocation = {}
         if ixId in dstIxLocations:
-            matchLocation = {"id": ixId , "name": dstIxLocations[ixId]}
+            matchLocation = {"id": ixId, "name": dstIxLocations[ixId]}
             commomIxLocations.append(matchLocation)
     if commomIxLocations != []:
         dstOutput[dstAsn] = {
@@ -79,7 +146,7 @@ def main():
         "src-asn":   {"required": True,  "type": "int"},
         "dst-asn":   {"required": True,  "type": "int"},
         "username":  {"required": False, "type": "str"},
-        "password":  {"required": False, "type": "str"}
+        "password":  {"required": False, "type": "str", "no_log": True}
     }
     module = AnsibleModule(argument_spec=fields)
     response = pasrseASNData(module.params['src-asn'], module.params['dst-asn'],
