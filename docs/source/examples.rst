@@ -66,6 +66,7 @@ So for configuration management your playbook must perform the following tasks:
   
    Remember to configure the netero_mode variable to "backup"
    Suported Vendors:
+
    * IOS
    * IOS-XR
    * MikroTik
