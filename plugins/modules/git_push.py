@@ -12,7 +12,6 @@ ANSIBLE_METADATA = {
 }
 
 DOCUMENTATION = '''
----
 module: git_push
 
 short_description: Makes git push on repository
@@ -36,11 +35,18 @@ author:
 '''
 
 EXAMPLES = '''
-# Push changes to the repository
 - name: Push repo
   git_push:
     path: /home/repository
 '''
+
+RETURN = '''
+message:
+  description: object
+  returned: success
+  type: dict
+'''
+
 
 
 def git_status(module, git_path, repo_path):

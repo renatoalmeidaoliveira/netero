@@ -5,17 +5,16 @@ import json
 
 from ansible.module_utils.basic import AnsibleModule
 from requests.auth import HTTPBasicAuth
+
 ANSIBLE_METADATA = {
     'metadata_version': '1.0.1',
     'status': ['preview'],
     'supported_by': 'community'
 }
-
 DOCUMENTATION = '''
----
 module: peeringdb_getasn
 
-short_description: Searches in peeringDB database for an ASN policy and interfaces 
+short_description: Searches for an ASN policy and interfaces 
 
 version_added: "0.0.1"
 
@@ -48,7 +47,6 @@ author:
 '''
 
 EXAMPLES = '''
-# Get ASN 15169 data on IXP with id 171
 - name: Search ASN 15169
   peeringdb_getasn:
     asn: 15169
@@ -56,29 +54,11 @@ EXAMPLES = '''
 '''
 
 RETURN = '''
-message:
-  ASN:
-    - description: "The target ASN"
-  info_ipv6: 
-    - description: "Is True if the ASN uses IPv6"
-  info_prefixes4:
-    - description: "The number of IPv4 prefixes the ASN announces"
-  info_prefixes6:
-    - description: "The number of IPv4 prefixes the ASN announces"
-  info_unicast:
-    - description: "Is True if the ASN uses IPv4"
-  interfaces:
-    - description: "List with the ASN interfaces information"
-    - objects: 
-      - ipaddr4: "The interface IPv4 address"
-        ipaddr6: "The interface IPv4 address"
-        speed: : "The interface speed"
-  irr_as_set:
-    - description: "The IRR AS-SET"
-  poc_set:
-    - description: "Object with contact information"
+object:
+    description: object representing ASN data
+    returned: success
+    type: dict
 '''
-
 
 def getASNID(asn, username=None, password=None):
 

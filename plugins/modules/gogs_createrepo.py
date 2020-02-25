@@ -14,7 +14,6 @@ ANSIBLE_METADATA = {
 }
 
 DOCUMENTATION = '''
----
 module: gogs_createrepo
 
 short_description: Create a repository on Gogs
@@ -81,13 +80,19 @@ author:
 '''
 
 EXAMPLES = '''
-# Create a repository
 - name: Create Repository
   gogs_createRepo:
     gogsURL: "http://gogs.local:3000/"
     organization: "acme"
     name: "Test Inventory"
     accessToken: "Token"
+'''
+
+RETURN = '''
+message:
+  description: object
+  returned: success
+  type: dict
 '''
 
 

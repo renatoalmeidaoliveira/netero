@@ -10,7 +10,6 @@ ANSIBLE_METADATA = {
 }
 
 DOCUMENTATION = '''
----
 module: irr_prefix
 
 short_description: Generater IRR prefix-list
@@ -47,13 +46,18 @@ author:
 '''
 
 EXAMPLES = '''
-# Get as prefix-list
 - name: Get prefix-list
   irr_prefix:
     asn32_safe: true
     IPv: 4
     as-set: AS1234
+'''
 
+RETURN = '''
+message:
+  description: object containing the IRR prefixes
+  returned: success
+  type: dict
 '''
 
 

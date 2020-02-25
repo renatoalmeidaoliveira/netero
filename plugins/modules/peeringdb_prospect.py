@@ -11,11 +11,10 @@ ANSIBLE_METADATA = {
     'supported_by': 'community'
 }
 
-DOCUMENTATION = '''
----
-module: peeringDB prospect
+DOCUMENTATION = """
+module: peeringdb_prospect
 
-short_description: Searches in the peeringDB database which IXP an dst-ASN has in common with src-ASN
+short_description: Searches for common IXP
 
 version_added: "0.0.1"
 
@@ -42,35 +41,21 @@ options:
         required: false
 author:
     - Renato Almeida de Oliveira (renato.a.oliveira@pm.me)
-'''
+"""
 
-EXAMPLES = '''
-# Extract IXP that ASN 15169 and ASN 2906 have in common
-- name: Commit repo
+EXAMPLES = """
+- name: Get ASN Data
   peeringdb_prospect:
     dst-asn: 15169
     src-asn: 2906
-'''
+"""
 
-RETURN = '''
-message:
-  - ASN:
-      IXs:
-        - id: 
-          name: 
-      poc_set:
-        - role: 
-          created: 
-          email:
-          phone:
-          name:
-          status:
-          updated:
-          url:
-          visible:
-          id:
-'''
-
+RETURN = """
+object:
+    description: object representing ASN data
+    returned: success
+    type: dict
+"""
 
 def getASNID(asn, username=None, password=None):
 
@@ -133,6 +118,7 @@ def pasrseASNData(srcAsn, dstAsn, username=None, password=None):
             commomIxLocations.append(matchLocation)
     if commomIxLocations != []:
         dstOutput[dstAsn] = {
+            "name": dstAsnData["name"],
             "IXs": commomIxLocations,
             "poc_set": dstAsnData["poc_set"]
         }

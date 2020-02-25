@@ -10,7 +10,6 @@ ANSIBLE_METADATA = {
 }
 
 DOCUMENTATION = '''
----
 module: git_commit
 
 short_description: Makes git commit on repository
@@ -36,16 +35,21 @@ author:
 '''
 
 EXAMPLES = '''
-# Commit without a message
 - name: Commit repo
   git_commit:
     path: /home/repository
 
-# Commit with a custom message
 - name: Commit with message
   git_commit:
     path: /home/repository
     commitMessage: "Commit executed by Ansible"
+'''
+
+RETURN = '''
+message:
+  description: object
+  returned: success
+  type: dict
 '''
 
 
