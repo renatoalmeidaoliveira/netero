@@ -5,7 +5,7 @@
     password: "{{ansible_ssh_pass}}"
     backup: yes
     backup_path: "{{ inventory_hostname }}"
-    backup_filename: "{{ inventory_hostname }}".cfg
+    backup_filename: "{{ inventory_hostname }}.cfg"
   ignore_errors: yes
 - name: Sanitize Configuration File
   lineinfile:
