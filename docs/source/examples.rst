@@ -9,6 +9,79 @@ For the configuration backup you can use the backup mode and netero roles or use
 Using the roles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The netero roles encapsulate the configuration gathering of the devices, and for utilization you must setup the netero mode to backup, and separate your devices in groups of vendors, i.e., IOS, IOS-XR, ROUTEROS, etc.
+So for configuration management your playbook must perform the following tasks:
+1.      Create the repository in your favorite repository manager, in the example the gogs_createrepo are going to be used.
+2.      Clone the previously created repositories.
+
+.. code-block:: yaml+jinja
+
+    - name: Setup repositories
+      collections:
+        - renatoalmeidaoliveira.netero
+
+      hosts: all
+
+      tasks:
+
+       - name: Create Repository
+         gogs_createrepo:
+            gogsURL: "http://gogs.local:3000/"
+            organization: "netero"
+            name: "{{ inventory_hostname }}"
+            accessToken: "0bba381ce3df8208591e067a4abae72a556974ce"
+         delegate_to: localhost
+
+       - name: Clone Repository
+         git:
+            repo: "git@gogs.local:netero/{{ inventory_hostname }}.git"
+            dest: "{{ inventory_hostname }}"
+         delegate_to: localhost
+
+
+3.      Create a play for each of your device vendors and set the respective group.
+
+.. code-block:: yaml+jinja
+
+    - name: Collect IOS-XR configuration
+      collections:
+        - renatoalmeidaoliveira.netero
+      vars:
+        - netero_mode: "backup"
+      hosts: iosxr
+      roles:
+        - iosxr
+    - name: Collect MK configuration
+      collections:
+        - renatoalmeidaoliveira.netero
+      vars:
+        - netero_mode: "backup"
+      hosts: routeros
+      roles:
+        - routeros
+
+4.      Commit and push the repositories .
+
+.. code-block:: yaml+jinja
+
+    - name: Commit and push reporitories
+
+      collections:
+        - renatoalmeidaoliveira.netero
+
+      hosts: all
+
+      tasks:
+
+      - name: Commit
+        git_commit:
+          path: "{{ inventory_hostname }}"
+        delegate_to: localhost
+      - name: Push
+        git_push:
+          path: "{{ inventory_hostname }}"
+        delegate_to: localhost
+
 Using the modules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -178,6 +178,76 @@
 <p>For the configuration backup you can use the backup mode and netero roles or use the modules directly.</p>
 <div class="section" id="using-the-roles">
 <h3>Using the roles<a class="headerlink" href="#using-the-roles" title="Permalink to this headline">¶</a></h3>
+<p>The netero roles encapsulate the configuration gathering of the devices, and for utilization you must setup the netero mode to backup, and separate your devices in groups of vendors, i.e., IOS, IOS-XR, ROUTEROS, etc.
+So for configuration management your playbook must perform the following tasks:
+1.      Create the repository in your favorite repository manager, in the example the gogs_createrepo are going to be used.
+2.      Clone the previously created repositories.</p>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Setup repositories</span>
+  <span class="nt">collections</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>
+
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">all</span>
+
+  <span class="nt">tasks</span><span class="p">:</span>
+
+   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Create Repository</span>
+     <span class="nt">gogs_createrepo</span><span class="p">:</span>
+        <span class="nt">gogsURL</span><span class="p">:</span> <span class="s">&quot;http://gogs.local:3000/&quot;</span>
+        <span class="nt">organization</span><span class="p">:</span> <span class="s">&quot;netero&quot;</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+        <span class="nt">accessToken</span><span class="p">:</span> <span class="s">&quot;0bba381ce3df8208591e067a4abae72a556974ce&quot;</span>
+     <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+
+   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Clone Repository</span>
+     <span class="nt">git</span><span class="p">:</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="s">&quot;git@gogs.local:netero/</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">.git&quot;</span>
+        <span class="nt">dest</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+     <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Create a play for each of your device vendors and set the respective group.</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Collect IOS-XR configuration</span>
+  <span class="nt">collections</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>
+  <span class="nt">vars</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">netero_mode</span><span class="p">:</span> <span class="s">&quot;backup&quot;</span>
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">iosxr</span>
+  <span class="nt">roles</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">iosxr</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Collect MK configuration</span>
+  <span class="nt">collections</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>
+  <span class="nt">vars</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">netero_mode</span><span class="p">:</span> <span class="s">&quot;backup&quot;</span>
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">routeros</span>
+  <span class="nt">roles</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">routeros</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Commit and push the repositories .</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Commit and push reporitories</span>
+
+  <span class="nt">collections</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>
+
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">all</span>
+
+  <span class="nt">tasks</span><span class="p">:</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Commit</span>
+    <span class="nt">git_commit</span><span class="p">:</span>
+      <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+    <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Push</span>
+    <span class="nt">git_push</span><span class="p">:</span>
+      <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+    <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="using-the-modules">
 <h3>Using the modules<a class="headerlink" href="#using-the-modules" title="Permalink to this headline">¶</a></h3>
