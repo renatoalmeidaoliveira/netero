@@ -202,7 +202,7 @@ For creating routing policies we gonna use the peergindb_getasn and irr_prefix m
 
 **SAMPLE OUTPUT**
 
-.. code-block:: 
+.. code-block:: javascript
 
     "ASNData.message": {
       "ASN": 204092,
