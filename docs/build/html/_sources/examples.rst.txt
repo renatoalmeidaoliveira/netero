@@ -62,6 +62,9 @@ So for configuration management your playbook must perform the following tasks:
       roles:
         - routeros
 
+.. warning::
+   Remember to configure the netero_mode variable to "backup"
+
 4.      Commit and push the repositories .
 
 .. code-block:: yaml+jinja
