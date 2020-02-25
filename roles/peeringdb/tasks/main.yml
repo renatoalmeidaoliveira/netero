@@ -1,0 +1,82 @@
+- name: Model Lookup
+  find:
+    paths: "{{netero_model_dir}}/peeringdb/"
+    patterns: "*"
+    file_type: file
+  register: modelFile
+
+- name: Include Model Vars
+  include_vars:
+    file: "{{item.path}}"
+  when: modelFile.files != [] 
+  with_items: "{{modelFile.files}}"
+  
+- name: Get PeeringDb data
+  peeringdb_getASN:
+    asn: "{{item.dstASN}}"
+    ix-id: "{{item.ixId}}"
+  when:
+    - peeringDb is defined
+    - peeringDb.getASNData != []
+    - netero_peeringdb_user is undefined
+    - netero_peeringdb_password is undefined
+  with_items: "{{ peeringDb.getASNData }}"
+  register: result
+
+- name: Print Model.
+  debug:
+   var: result.results
+  when:
+    - peeringDb is defined
+    - peeringDb.getASNData != []
+    - netero_peeringdb_user is undefined
+    - netero_peeringdb_password is undefined
+
+- name: Create BGP Model
+  template:
+    src: peeringdb.j2
+    dest: "{{ netero_config_dir }}bgp/{{item.item.dstRTR}}.cfg"
+    mode: 0777
+  with_items: "{{ result.results }}"
+  when:
+    - result is defined
+    - peeringDb is defined
+    - peeringDb.getASNData != []
+    - netero_peeringdb_user is undefined
+    - netero_peeringdb_password is undefined
+
+- name: Get PeeringDb data
+  peeringdb_getASN:
+    asn: "{{item.dstASN}}"
+    ix-id: "{{item.ixId}}"
+    username: "{{netero_peeringdb_user}}"
+    password: "{{netero_peeringdb_password}}"
+  when:
+    - peeringDb is defined
+    - peeringDb.getASNData != []
+    - netero_peeringdb_user is defined
+    - netero_peeringdb_password is defined
+  with_items: "{{ peeringDb.getASNData }}"
+  register: result
+
+- name: Print Model.
+  debug:
+   var: result.results
+  when:
+    - peeringDb is defined
+    - peeringDb.getASNData != []
+    - netero_peeringdb_user is defined
+    - netero_peeringdb_password is defined
+
+- name: Create BGP Model
+  template:
+    src: peeringdb.j2
+    dest: "{{ netero_config_dir }}bgp/{{item.item.dstRTR}}.cfg"
+    mode: 0777
+  with_items: "{{ result.results }}"
+  when:
+    - result is defined
+    - peeringDb is defined
+    - peeringDb.getASNData != []
+    - netero_peeringdb_user is defined
+    - netero_peeringdb_password is defined

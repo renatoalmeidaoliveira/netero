@@ -1,0 +1,554 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Use Cases &mdash; Netero 1.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modules" href="modules.html" />
+    <link rel="prev" title="Installing Netero" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Netero
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Using Netero Collection</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing Netero</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Use Cases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-backup">Configuration Backup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-roles">Using the roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-modules">Using the modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-routing-policies">Creating routing policies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Using the modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#prospect-asn">Prospect ASN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Using the modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Netero</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Use Cases</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="use-cases">
+<h1>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="configuration-backup">
+<h2>Configuration Backup<a class="headerlink" href="#configuration-backup" title="Permalink to this headline">¶</a></h2>
+<p>For the configuration backup you can use the backup mode and netero roles or use the modules directly.</p>
+<div class="section" id="using-the-roles">
+<h3>Using the roles<a class="headerlink" href="#using-the-roles" title="Permalink to this headline">¶</a></h3>
+<p>The netero roles encapsulate the configuration gathering of the devices, and for utilization you must setup the netero mode to backup, and separate your devices in groups of vendors, i.e., IOS, IOS-XR, ROUTEROS, etc.</p>
+<p>So for configuration management your playbook must perform the following tasks:</p>
+<ol class="arabic simple">
+<li><p>Create the repository in your favorite repository manager, in the example the gogs_createrepo are going to be used.</p></li>
+<li><p>Clone the previously created repositories.</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Setup repositories</span>
+  <span class="nt">collections</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>
+
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">all</span>
+
+  <span class="nt">tasks</span><span class="p">:</span>
+
+   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Create Repository</span>
+     <span class="nt">gogs_createrepo</span><span class="p">:</span>
+        <span class="nt">gogsURL</span><span class="p">:</span> <span class="s">&quot;http://gogs.local:3000/&quot;</span>
+        <span class="nt">organization</span><span class="p">:</span> <span class="s">&quot;netero&quot;</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+        <span class="nt">accessToken</span><span class="p">:</span> <span class="s">&quot;0bba381ce3df8208591e067a4abae72a556974ce&quot;</span>
+     <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+
+   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Clone Repository</span>
+     <span class="nt">git</span><span class="p">:</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="s">&quot;git@gogs.local:netero/</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">.git&quot;</span>
+        <span class="nt">dest</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+     <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Create a play for each of your device vendors and set the respective group.</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Collect IOS-XR configuration</span>
+  <span class="nt">collections</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>
+  <span class="nt">vars</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">netero_mode</span><span class="p">:</span> <span class="s">&quot;backup&quot;</span>
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">iosxr</span>
+  <span class="nt">roles</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">iosxr</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Collect MK configuration</span>
+  <span class="nt">collections</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>
+  <span class="nt">vars</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">netero_mode</span><span class="p">:</span> <span class="s">&quot;backup&quot;</span>
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">routeros</span>
+  <span class="nt">roles</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">routeros</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remember to configure the netero_mode variable to “backup”</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Commit and push the repositories .</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Commit and push reporitories</span>
+
+  <span class="nt">collections</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>
+
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">all</span>
+
+  <span class="nt">tasks</span><span class="p">:</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Commit</span>
+    <span class="nt">git_commit</span><span class="p">:</span>
+      <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+    <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Push</span>
+    <span class="nt">git_push</span><span class="p">:</span>
+      <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+    <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-the-modules">
+<h3>Using the modules<a class="headerlink" href="#using-the-modules" title="Permalink to this headline">¶</a></h3>
+<p>For make your backup with the modules you could use the following steps</p>
+<ol class="arabic simple">
+<li><p>Create the repository on Gogs, if the repository already exists the module runs without changes</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Create Repository</span>
+  <span class="nt">gogs_createrepo</span><span class="p">:</span>
+     <span class="nt">gogsURL</span><span class="p">:</span> <span class="s">&quot;&lt;Gogs</span><span class="nv"> </span><span class="s">URL&gt;&quot;</span>
+     <span class="nt">organization</span><span class="p">:</span> <span class="s">&quot;acme&quot;</span>
+     <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+     <span class="nt">accessToken</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;accessToken&gt;</span>
+  <span class=" -Error"> </span><span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Clone the configuration repository</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Clone Repository</span>
+  <span class="nt">git</span><span class="p">:</span>
+    <span class="nt">repo</span><span class="p">:</span> <span class="s">&quot;&lt;Gogs</span><span class="nv"> </span><span class="s">URL&gt;:&lt;org|user&gt;/</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">.git&quot;</span>
+    <span class="nt">dest</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Setup the SSH Keys with Gogs and the Server runnig Ansible, instead of using username and password</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Extract your device configuration using any module you want.</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Gather device configuration</span>
+  <span class="nt">routeros_facts</span><span class="p">:</span>
+    <span class="nt">gather_subset</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Create the configuration File</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Create configuration File</span>
+  <span class="nt">copy</span><span class="p">:</span>
+    <span class="nt">content</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span><span class="nv">ansible_net_config</span><span class="cp">}}</span><span class="s">&quot;</span>
+    <span class="nt">dest</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">/</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">.cfg&quot;</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Sanitize your configuration file</p></li>
+</ol>
+<p>In this step remove any line containing passwords, and the timestamp of the collect, ie usually the first line</p>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Sanitize Configuration File</span>
+  <span class="nt">lineinfile</span><span class="p">:</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">/</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">.cfg&quot;</span>
+    <span class="nt">state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">absent</span>
+    <span class="nt">regexp</span><span class="p">:</span> <span class="s">&#39;#</span><span class="nv"> </span><span class="s">\w+/\d+/\d+</span><span class="nv"> </span><span class="s">\d+:\d+:\d+.*&#39;</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Commit the local repository</p></li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Make sure that the user runnig the ansible-playbook have the git user.name and user.email configured</p>
+</div>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Commit</span>
+  <span class="nt">git_commit</span><span class="p">:</span>
+     <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Push the repository</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Push</span>
+  <span class="nt">git_push</span><span class="p">:</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">inventory_hostname</span> <span class="cp">}}</span><span class="s">&quot;</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-routing-policies">
+<h2>Creating routing policies<a class="headerlink" href="#creating-routing-policies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Using the modules<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>For creating routing policies we gonna use the peergindb_getasn and irr_prefix modules, for extract all the ASN informations and then using Jinja2 templates it is possible to create the desired configuration</p>
+<ol class="arabic simple">
+<li><p>Consultando a API do PeeringDB para extrair as informações do ASN:</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Get ASN Data</span>
+  <span class="nt">peeringdb_getasn</span><span class="p">:</span>
+    <span class="nt">asn</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">204092</span>
+    <span class="nt">ix-id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1670</span>
+  <span class="nt">register</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ASNData</span>
+</pre></div>
+</div>
+<p><strong>SAMPLE OUTPUT</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="s2">&quot;ASNData.message&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ASN&quot;</span><span class="p">:</span> <span class="mi">204092</span><span class="p">,</span>
+    <span class="s2">&quot;info_ipv6&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;info_prefixes4&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">&quot;info_prefixes6&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">&quot;info_unicast&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;interfaces&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;ipaddr4&quot;</span><span class="p">:</span> <span class="s2">&quot;185.1.89.10&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ipaddr6&quot;</span><span class="p">:</span> <span class="s2">&quot;2001:7f8:b1::a&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">1000</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;irr_as_set&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;AS-GRIFON&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;poc_set&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Using the ASN Data as input for irr_prefix:</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Get IRR Prefix</span>
+  <span class="nt">irr_prefix</span><span class="p">:</span>
+    <span class="nt">asn32Safe</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+    <span class="nt">IPv</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+    <span class="nt">asSet</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">item</span> <span class="cp">}}</span><span class="nv"> </span><span class="s">&quot;</span>
+    <span class="nt">aggregate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">with_items</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">ASNData.message.irr_as_set</span> <span class="cp">}}</span><span class="s">&quot;</span>
+  <span class="nt">register</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IRRData</span>
+</pre></div>
+</div>
+<p><strong>SAMPLE OUTPUT</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;IRRData.results&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;ansible_loop_var&quot;</span><span class="p">:</span> <span class="s2">&quot;item&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;changed&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">&quot;failed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;invocation&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;module_args&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;IPv&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;aggregate&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                    <span class="s2">&quot;asSet&quot;</span><span class="p">:</span> <span class="s2">&quot;AS-GRIFON &quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;asn32Safe&quot;</span><span class="p">:</span> <span class="n">true</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;AS-GRIFON&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;irr_prefix&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                        <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;23.128.24.0/24&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                        <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;23.128.25.0/25&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                        <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;23.128.25.240/28&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Create a Jinja2 template for create your device configuration</p></li>
+<li><p>Apply the configuration to your device</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="prospect-asn">
+<h2>Prospect ASN<a class="headerlink" href="#prospect-asn" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Using the modules<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>This module was created to simplify ASN information gathering, imagine the following scenario:</p>
+<ul class="simple">
+<li><p>Your NetFlow monitoring system shows you that 30% of your traffic goes to some ASN, and to optimize your traffic you want to make an peering agreement with that ASN but you don’t know any contact number and if that ASN is on the same IXP with your.</p></li>
+<li><p>After getting that information you want to send the Policy contact an email asking for the peering agreement</p></li>
+</ul>
+<p>That can be configured as follow:</p>
+<ol class="arabic simple">
+<li><p>Configure the module with your ASN in src-asn and the desired ASNs in dst-asn, and with your peeringDB username and password:</p></li>
+</ol>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Prospect ASN Data</span>
+  <span class="nt">peeringdb_prospect</span><span class="p">:</span>
+    <span class="nt">src-asn</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1916</span>
+    <span class="nt">dst-asn</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1251</span>
+    <span class="nt">username </span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Joe</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">secret</span>
+</pre></div>
+</div>
+<p><strong>SAMPLE OUTPUT</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;prospectData&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;changed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+    <span class="s2">&quot;failed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;1251&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;IXs&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">171</span><span class="p">,</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;IX.br (PTT.br) São Paulo: ATM/MPLA&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">119</span><span class="p">,</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Equinix São Paulo: Equinix IX - SP Metro&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ANSP&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;poc_set&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;*************&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;*****@*****&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="o">*******</span><span class="p">,</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;********&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;phone&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;Technical&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;************&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;*******&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="s2">&quot;Users&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Contact data sanitized.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Create a template with Jinja using ASN data</p></li>
+<li><p>Send an email asking for your peering session</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules.html" class="btn btn-neutral float-right" title="Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral float-left" title="Installing Netero" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Renato Almeida de Oliveira
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+- name: Gather device configuration
+  routeros_facts:
+    gather_subset:
+      - config
+- name: Create configuration File
+  copy:
+    content: "{{ansible_net_config}}"
+    dest: "{{ inventory_hostname }}/{{ inventory_hostname }}.cfg"
+- name: Sanitize Configuration File
+  lineinfile:
+    path: "{{ inventory_hostname }}/{{ inventory_hostname }}.cfg"
+    state: absent
+    regexp: '# \w+/\d+/\d+ \d+:\d+:\d+.*'

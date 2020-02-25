@@ -1,0 +1,14 @@
+galaxy_info:
+  role_name: iosxr
+  author: Renato Almeida de Oliveira
+  description: Role that encapsulate iosxr syntax
+
+  license: GPLv3
+
+  min_ansible_version: 1.2
+
+  platforms:
+    - name: Cisco IOS XR
+
+  galaxy_tags: []
+dependencies: []

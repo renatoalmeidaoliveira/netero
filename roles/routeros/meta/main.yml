@@ -1,0 +1,12 @@
+galaxy_info:
+  role_name: peeringdb
+  author: Renato Almeida de Oliveira
+  description: Role that consumes peeringDB module and creates the configuration model
+
+  license: GPLv3
+
+  min_ansible_version: 1.2
+
+  galaxy_tags: []
+ 
+dependencies: []

@@ -1,0 +1,53 @@
+bgp:
+  global:
+    as: {{ item.item.srcASN }}
+  afi-safis:
+    - name: ipv4-unicast
+      config:
+        enabled: true
+    - name: ipv6-unicast
+      config: 
+        enabled: true
+  peer-groups:
+    - name: AS{{ item.item.dstASN}}
+      config:
+        peer-as : {{ item.item.dstASN}}
+      afi-safis:
+{% if item.message.info_ipv6 == true %}
+        - name: ipv6-unicast
+          config:
+            enabled: true
+{% if item.message.info_prefixes6 is defined %}
+            max-prefixes: {{item.message.info_prefixes6}}
+{% endif %}
+          apply-policy:
+            import-policy: {{ item.item.v6PolicyIn }}
+            export-policy: {{ item.item.v6PolicyOut }}
+{% endif %}
+{% if item.message.info_unicast == true %}
+        - name: ipv4-unicast
+          config:
+            enabled: true
+{% if item.message.info_prefixes4 is defined %}
+            max-prefixes: {{item.message.info_prefixes4}}
+{% endif %}
+          apply-policy:
+            import-policy: {{ item.item.policyIn }}
+            export-policy: {{ item.item.policyOut }}
+{% endif %}
+  neighbors:
+{% if item.message.info_unicast == true %}
+{% for interface in item.message.interfaces %}
+    - address: {{interface.ipaddr4}}
+      config:
+        peer-group: AS{{ item.item.dstASN}}
+{% endfor %}
+{% endif %}
+{% if item.message.info_ipv6 == true %}
+{% for interface in item.message.interfaces %}
+    - address: {{interface.ipaddr6}}
+      config:
+        peer-group: AS{{ item.item.dstASN}}
+{% endfor %}
+{% endif %}
+
