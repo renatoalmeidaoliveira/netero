@@ -14,7 +14,7 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = '''
 module: peeringdb_getasn
 
-short_description: Searches for an ASN policy and interfaces 
+short_description: Searches for an ASN policy and interfaces
 
 version_added: "0.0.1"
 
@@ -59,6 +59,7 @@ object:
     returned: success
     type: dict
 '''
+
 
 def getASNID(asn, username=None, password=None):
 

@@ -9,7 +9,7 @@ namespace: renatoalmeidaoliveira
 name: netero
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 1.0.2
+version: 1.1.0
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -48,10 +48,10 @@ dependencies: {}
 repository: https://github.com/renatoalmeidaoliveira/netero
 
 # The URL to any online docs
-documentation: https://github.com/renatoalmeidaoliveira/netero/wiki
+documentation: https://netero.renatooliveira.eng.br/
 
 # The URL to the homepage of the collection/project
-homepage: https://github.com/renatoalmeidaoliveira/netero/wiki
+homepage: https://netero.renatooliveira.eng.br/
 
 # The URL to the collection issue tracker
 issues: https://github.com/renatoalmeidaoliveira/netero/issues

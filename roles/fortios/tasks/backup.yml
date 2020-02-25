@@ -1,8 +1,8 @@
 - name: Gather device configuration
   fortios_config:
-    host: "{{ansible_host}}"
-    username: "{{ansible_user}}"
-    password: "{{ansible_ssh_pass}}"
+    host: "{{ ansible_host }}"
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_ssh_pass }}"
     backup: yes
     backup_path: "{{ inventory_hostname }}"
     backup_filename: "{{ inventory_hostname }}.cfg"
@@ -11,7 +11,7 @@
   lineinfile:
     path: "{{ inventory_hostname }}/{{ inventory_hostname }}.cfg"
     state: absent
-    regexp: "{{item}}"
+    regexp: "{{ item }}"
   with_items:
-    -  '\s*set password ENC .*'
-    -  '\s*set passwd ENC .*'
+    - '\s*set password ENC .*'
+    - '\s*set passwd ENC .*'

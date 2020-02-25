@@ -1,9 +1,7 @@
-import json
-import datetime
 import re
 
-from ansible.module_utils.basic import *
-from ansible.errors import *
+from ansible.module_utils.basic import AnsibleModule, to_native
+from ansible.errors import AnsibleError
 
 ANSIBLE_METADATA = {
     'metadata_version': '1.0.1',
@@ -48,7 +46,6 @@ message:
 '''
 
 
-
 def git_status(module, git_path, repo_path):
     cmd = "%s status -sb" % (git_path)
     rc, stdout, stderr = module.run_command(cmd, cwd=repo_path)
@@ -76,8 +73,8 @@ def main():
     result = dict(changed=False, warnings=list())
     try:
         response = git_status(module, path, module.params['path'])
-        modified = re.search("\[ahead \d+\]", response)
-        if modified == None:
+        modified = re.search(r'\[ahead \d+\]', response)
+        if modified is None:
             result.update(changed=False)
         else:
             pushResponse = git_push(module, path, module.params['path'])

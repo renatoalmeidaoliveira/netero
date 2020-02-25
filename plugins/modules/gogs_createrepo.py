@@ -1,11 +1,9 @@
 #!/usr/bin/python
 
 import requests
-import json
 import re
 
 from ansible.module_utils.basic import AnsibleModule, to_native
-from requests.auth import HTTPBasicAuth
 
 ANSIBLE_METADATA = {
     'metadata_version': '1.0.1',
@@ -70,7 +68,7 @@ options:
             - "Desired README template to apply. Use the name of the template."
         required: false
     accessToken:
-        description: 
+        description:
             - "The user Access Token"
         required: true
 
@@ -112,9 +110,8 @@ def gogsSearch(module):
 
 
 def gogsCreateRepo(module):
-    name = module.params['name']
     resource = ""
-    if module.params['user'] == None:
+    if module.params['user'] is None:
         org = module.params['organization']
         resource = "api/v1/org/%s/repos" % (org)
     else:
@@ -130,9 +127,9 @@ def gogsCreateRepo(module):
                   "gitignores", "license", "readme"]
     payload = dict()
     for parameter in parameters:
-        if module.params[parameter] != None:
+        if module.params[parameter] is not None:
             payload[parameter] = module.params[parameter]
-    if module.params["autoInit"] != None:
+    if module.params["autoInit"] is not None:
         payload["auto_init"] = module.params["autoInit"]
         payload["readme"] = module.params["readme"] or "Default"
     request = requests.post(Path, headers=headers, json=payload)

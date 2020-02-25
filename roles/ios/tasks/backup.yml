@@ -4,7 +4,7 @@
       - config
 - name: Create configuration File
   copy:
-    content: "{{ansible_net_config}}"
+    content: "{{ ansible_net_config }}"
     dest: "{{ inventory_hostname }}/{{ inventory_hostname }}.cfg"
 - name: Sanitize Configuration File
   lineinfile:

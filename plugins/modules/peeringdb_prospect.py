@@ -57,6 +57,7 @@ object:
     type: dict
 """
 
+
 def getASNID(asn, username=None, password=None):
 
     if (username is not None) and (password is not None):
