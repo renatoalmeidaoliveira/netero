@@ -10,4 +10,4 @@
   lineinfile:
     path: "{{ inventory_hostname }}/{{ inventory_hostname }}.cfg"
     state: absent
-    regexp: '# \w+/\d+/\d+ \d+:\d+:\d+.*'
+    regexp: '\w+ \w+ \d+ \d+:\d+:\d+\.\d+ \w+'

@@ -9,7 +9,7 @@
   ignore_errors: yes
 - name: Sanitize Configuration File
   lineinfile:
-    path: "{{ inventory_hostname }}/{{ inventory_hostname }}"
+    path: "{{ inventory_hostname }}/{{ inventory_hostname }}.cfg"
     state: absent
     regexp: "{{item}}"
   with_items:
