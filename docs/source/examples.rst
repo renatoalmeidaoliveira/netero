@@ -240,7 +240,7 @@ For creating routing policies we gonna use the peergindb_getasn and irr_prefix m
 
 **SAMPLE OUTPUT**
 
-.. code-block::
+.. code-block:: javascript
 
     "IRRData.results": [
             {
@@ -307,7 +307,7 @@ That can be configured as follow:
 
 **SAMPLE OUTPUT** 
 
-.. code-block::
+.. code-block:: javascript
 
     "prospectData": {
         "changed": false,
