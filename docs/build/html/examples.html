@@ -178,10 +178,12 @@
 <p>For the configuration backup you can use the backup mode and netero roles or use the modules directly.</p>
 <div class="section" id="using-the-roles">
 <h3>Using the roles<a class="headerlink" href="#using-the-roles" title="Permalink to this headline">¶</a></h3>
-<p>The netero roles encapsulate the configuration gathering of the devices, and for utilization you must setup the netero mode to backup, and separate your devices in groups of vendors, i.e., IOS, IOS-XR, ROUTEROS, etc.
-So for configuration management your playbook must perform the following tasks:
-1.      Create the repository in your favorite repository manager, in the example the gogs_createrepo are going to be used.
-2.      Clone the previously created repositories.</p>
+<p>The netero roles encapsulate the configuration gathering of the devices, and for utilization you must setup the netero mode to backup, and separate your devices in groups of vendors, i.e., IOS, IOS-XR, ROUTEROS, etc.</p>
+<p>So for configuration management your playbook must perform the following tasks:</p>
+<ol class="arabic simple">
+<li><p>Create the repository in your favorite repository manager, in the example the gogs_createrepo are going to be used.</p></li>
+<li><p>Clone the previously created repositories.</p></li>
+</ol>
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Setup repositories</span>
   <span class="nt">collections</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">renatoalmeidaoliveira.netero</span>

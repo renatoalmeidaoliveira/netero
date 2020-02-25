@@ -10,7 +10,9 @@ Using the roles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The netero roles encapsulate the configuration gathering of the devices, and for utilization you must setup the netero mode to backup, and separate your devices in groups of vendors, i.e., IOS, IOS-XR, ROUTEROS, etc.
+
 So for configuration management your playbook must perform the following tasks:
+
 1.      Create the repository in your favorite repository manager, in the example the gogs_createrepo are going to be used.
 2.      Clone the previously created repositories.
 
