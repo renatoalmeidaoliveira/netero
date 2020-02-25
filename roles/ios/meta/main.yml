@@ -1,0 +1,12 @@
+galaxy_info:
+  role_name: ios
+  author: Renato Almeida de Oliveira
+  description: Role that encapsulate ios syntax
+
+  license: GPLv3
+
+  min_ansible_version: 1.2
+
+  galaxy_tags: []
+ 
+dependencies: []

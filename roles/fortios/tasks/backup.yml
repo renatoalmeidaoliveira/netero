@@ -1,0 +1,17 @@
+- name: Gather device configuration
+  fortios_config:
+    host: "{{ansible_host}}"
+    username: "{{ansible_user}}"
+    password: "{{ansible_ssh_pass}}"
+    backup: yes
+    backup_path: "{{ inventory_hostname }}"
+    backup_filename: "{{ inventory_hostname }}".cfg
+  ignore_errors: yes
+- name: Sanitize Configuration File
+  lineinfile:
+    path: "{{ inventory_hostname }}/{{ inventory_hostname }}"
+    state: absent
+    regexp: "{{item}}"
+  with_items:
+    -  '\s*set password ENC .*'
+    -  '\s*set passwd ENC .*'
