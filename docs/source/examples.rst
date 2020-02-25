@@ -63,7 +63,14 @@ So for configuration management your playbook must perform the following tasks:
         - routeros
 
 .. warning::
+  
    Remember to configure the netero_mode variable to "backup"
+   Suported Vendors:
+   * IOS
+   * IOS-XR
+   * MikroTik
+   * Fortgate
+
 
 4.      Commit and push the repositories .
 
