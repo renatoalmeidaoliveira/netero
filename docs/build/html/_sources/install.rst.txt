@@ -7,7 +7,7 @@ Requiriments
 This collection requires the following packages:
 
 * `[git] <https://git-scm.com/>`_
-* `[bgpq3] <https://github.com/snar/bgpq3>`_
+* `[bgpq3] <https://github.com/snar/bgpq3>`_ or `[bgpq4] <https://github.com/bgp/bgpq4>`_
 * `[requests] <https://pypi.org/project/requests/>`_
 * `[netmiko] <https://pypi.org/project/netmiko/>`_
 * `[ncclient] <https://pypi.org/project/ncclient/>`_
