@@ -98,9 +98,11 @@ def main():
 
     }
     module = AnsibleModule(argument_spec=fields)
-    path = module.get_bin_path('bgpq3', True)
     result = dict(changed=False, warnings=list())
     try:
+        path = module.get_bin_path('bgpq4', False)  or module.get_bin_path('bgpq3', False)
+        if path is None:
+            raise AnsibleError("BGPq3 ou BGPq4 not found")
         response = bgpq3Query(module, path)
         result.update(changed=True, message=response)
     except Exception as e:
