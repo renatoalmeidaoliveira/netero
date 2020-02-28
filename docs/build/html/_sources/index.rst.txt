@@ -17,7 +17,7 @@ Welcome to Netero's documentation!
 Quick Start
 ==================================
 
-Clone our `sample repository <https://github.com/renatoalmeidaoliveira/netero-sample.git>`, where you’re going to find some playbooks samples, and a Jinja2 template for RouterOS policy configurations.
+Clone our `sample repository <https://github.com/renatoalmeidaoliveira/netero-sample.git>`_ , where you’re going to find some playbooks samples, and a Jinja2 template for RouterOS policy configurations.
 
 .. raw:: html
 
