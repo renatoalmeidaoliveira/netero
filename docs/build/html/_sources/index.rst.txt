@@ -14,6 +14,19 @@ Welcome to Netero's documentation!
 * Consume PeeringDB API for gather AS informations as max IPv4/IPv6 prefixes, interfaces address, IRR-ASSET
 * Encapsulate BGPq3 or BGPq4 for generation of prefix-list of a given IRR-ASSET
 
+Quick Start
+==================================
+
+Clone our sample repository `https://github.com/renatoalmeidaoliveira/netero-sample.git`, where you’re going to find some playbooks samples, and a Jinja2 template for RouterOS policy configurations.
+
+.. raw:: html
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+        <iframe src=" https://www.youtube.com/embed/41vViNm1yu4" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+    </div>
+
+
+
 Next Steps 
 ===================================
 
