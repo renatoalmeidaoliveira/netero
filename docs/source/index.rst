@@ -3,6 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. meta::
+   :google-site-verification: SnqqZA5-pfEcJ-qbLboUbUwXV5GuaS1aguyNSHcWvQA
+   :description lang=en:
+        Netero is an Ansible collection that encapsulates PeeringDB API and BGPq3/BGPq4 for automatic generation of BGP routing policies.
+
 Welcome to Netero's documentation!
 ==================================
 
