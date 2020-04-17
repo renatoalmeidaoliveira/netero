@@ -67,6 +67,8 @@ def bgpq3Query(module, path):
         args = args + "3"
     if module.params["aggregate"]:
         args = args + "A"
+    if module.params["host"]:
+        args = "%s -h %s" % (args, module.params["host"])
     cmd = "%s -j%s -l irr_prefix %s" % (path, args, module.params["asSet"])
     rc, stdout, stderr = module.run_command(cmd)
     if stderr != "":
@@ -94,7 +96,8 @@ def main():
         "asn32Safe":    {"default": False, "type": "bool"},
         "IPv":          {"required": True, "type": "str", "choices": ['4', '6']},
         "aggregate":    {"default": False, "type": "bool"},
-        "asSet":        {"required": True, "type": "str"}
+        "asSet":        {"required": True, "type": "str"},
+        "host":         {"required": False, "type": "str"}
 
     }
     module = AnsibleModule(argument_spec=fields)
