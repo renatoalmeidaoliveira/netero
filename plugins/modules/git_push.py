@@ -60,7 +60,13 @@ def git_push(module, git_path, repo_path):
     if stderr != "":
         errorSanitized = re.sub(r'\/\/.*\:.*@', '//***@', stderr)
         raise AnsibleError(" git push error: %s " % errorSanitized)
-    return stdout
+    lines = stdout.split('\n')
+    output = {
+        'repository': lines[0].split(' ')[1],
+        'branches': lines[1].split("\t")[1],
+        'commit': lines[1].split("\t")[2]
+    }
+    return output
 
 
 def main():
@@ -78,7 +84,7 @@ def main():
             result.update(changed=False)
         else:
             pushResponse = git_push(module, path, module.params['path'])
-            result.update(changed=True, message=to_native(pushResponse))
+            result.update(changed=True, message=pushResponse)
     except Exception as e:
         module.fail_json(msg=to_native(e))
     module.exit_json(**result)
