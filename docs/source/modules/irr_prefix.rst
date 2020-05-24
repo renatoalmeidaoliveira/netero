@@ -39,7 +39,8 @@ Parameters
 
   asSet (True, any, None)
 
-
+  host(False, any, None)
+    Host running IRRD database
 
 
 
