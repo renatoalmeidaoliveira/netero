@@ -1,3 +1,4 @@
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/renatoalmeidaoliveira/netero)
 # Ansible Collection - renatoalmeidaoliveira.netero
 
 Netero is a simple utiliy to help network manangement, that aims to encpsulate vendors’ specifics sintax in YAML models based on YANG data model, in this realease it is possible to perfom the following:
