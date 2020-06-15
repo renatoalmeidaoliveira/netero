@@ -1,7 +1,7 @@
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/renatoalmeidaoliveira/netero)
 # Ansible Collection - renatoalmeidaoliveira.netero
 
-Netero is a simple utiliy to help network manangement, that aims to encpsulate vendors’ specifics sintax in YAML models based on YANG data model, in this realease it is possible to perfom the following:
+Netero is a simple utiliy to help network manangement, that aims to encpsulate vendors’ specifics Syntax in YAML models based on YANG data model, in this realease it is possible to perfom the following:
 
 * Manage your configuration Backups
 * Integrate your backups with Gogs API, with git push and commit
@@ -9,8 +9,14 @@ Netero is a simple utiliy to help network manangement, that aims to encpsulate v
 * Consume PeeringDB API for gather AS informations as max IPv4/IPv6 prefixes, interfaces address, IRR-ASSET
 * Encapsulate BGPq3/BGPq4 for generation of prefix-list of a given IRR-ASSET
 
+
+# Documentation Link:
+
+http://netero.renatooliveira.eng.br/
+
 # Requirements
 
+* [ansible 2.9.5](https://docs.ansible.com/ansible/2.9/index.html) 
 * [git](https://git-scm.com/)
 * [bgpq3](https://github.com/snar/bgpq3) or [bgpq4](https://github.com/bgp/bgpq4)
 * [requests](https://pypi.org/project/requests/)
@@ -25,7 +31,7 @@ Netero is a simple utiliy to help network manangement, that aims to encpsulate v
 
 # Use Cases 
 
-Netero is built for a multivendor environment, where all the  vendors specifics sintax are encapsulated in roles that deliver an uniform interface for the tasks.
+Netero is built for a multivendor environment, where all the  vendors specifics Syntax are encapsulated in roles that deliver an uniform interface for the tasks.
 For acomodate the specifc syntax of the vendors Netero relies on the Roles abstraction and on data models based on OpenConfig or YANG, as described in Figure 1.
 ![Figure 1. Multi Vendor conception](https://github.com/renatoalmeidaoliveira/netero/blob/assets/design.png) <p align="center">
   *Figure 1. Multi Vendor conception*
@@ -131,7 +137,3 @@ With the information’s above it is possible by following the process of Figure
 # Next Steps
 
 The configuration module, that will read model files and configure the network devices
-
-# Documentation Link:
-
-http://netero.renatooliveira.eng.br/
